@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User and API Auth</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="hero is-primary is-fullheight has-background-light">
+
+        <div class="hero-head">
+            <nav class="navbar has-text-weight-bold has-background-primary">
+                <div class="container">
+                    <div class="navbar-brand">
+                        <a role="button" class="navbar-burger burger has-text-black" aria-label="menu" aria-expanded="false" data-target="navbarMenuHeroA" >
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                        </a>
+                    </div>
+
+                    <div id="navbarMenuHeroA" class="navbar-menu">
+                        <div class="navbar-end">
+                            <div class="navbar-item has-text-light ">
+                                {% if current_user.is_authenticated %}
+                                <a href="{{ url_for('main.profile') }}" class="navbar-item">
+                                    PROFILE
+                                </a>
+                                <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+                                    LOGOUT
+                                </a>
+                                {% else %}
+                                <a href="{{ url_for('auth.login') }}" class="navbar-item">
+                                    LOGIN
+                                </a>
+                                <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+                                    SIGN UP
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- login, profile, signup form shows here-->
+        <div class="hero-body">
+            <div class="container">
+               {% block content %}
+               {% endblock %}
+            </div>
+        </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="footer has-background-primary">
+        <div class="content has-text-centered">
+          <p>
+            <strong>USER AND API AUTHENTICATION</strong> by <a href="https://github.com/kitian4k">Jan Christian Torres </a> & <a href="https://github.com/janahmorano"> Janah Patricia Morano </a>. <br> Software Developer Interns from 
+            <a href="https://www.lunasecurities.com/">Luna Securities</a>. <br> Source Code: <a href="https://github.com/kitian4k/User_API_Authentication">Github</a>.
+          </p> 
+        </div>
+      </footer>
+
+    <!-- nav burger script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        
+            if ($navbarBurgers.length > 0) {
+        
+                $navbarBurgers.forEach( el => {
+                    el.addEventListener('click', () => {
+
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+
+                        if (el.classList.contains('is-active')) {
+                            el.querySelector('span:nth-child(2)').style.transform = 'rotate(45deg)';
+                            el.querySelector('span:first-child').style.transform = 'rotate(45deg)';
+                            el.querySelector('span:last-child').style.transform = 'rotate(-45deg)';
+                        } else {
+                            el.querySelector('span:nth-child(2)').style.transform = '';
+                            el.querySelector('span:first-child').style.transform = '';
+                            el.querySelector('span:last-child').style.transform = '';
+                        }
+        
+                    });
+                });
+            }
+        });
+    </script>
+
+    
+
+</body>
+</html>
