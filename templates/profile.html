@@ -3,26 +3,26 @@
 {% block content %}
 
 <h1 class="title has-text-centered has-text-dark">
-  Welcome, {{ name }}!
+  Welcome, {{ name|capitalize }}!
 </h1>
 <div class="columns is-centered">
   <div class="column is-7">
-    <div class="box has-background-dark has-text-centered is-size-5">
-      
-
+    <div class="box has-background-dark has-text-centered">
       <h2 class="title has-text-centered is-size-3 has-text-white">YOUR HOMEWORKS:</h2>
-      <ul class="checkbox">
-        {% if api_data %}
-          {% for todo in api_data %}
-            <li class="has-text-white is-size-5 has-text-justified">
-              <input type="checkbox" id="todo_{{ loop.index }}" {% if todo.completed %} checked {% endif %}>
-              <label for="todo_{{ loop.index }}">{{ todo.title }}</label>
-            </li>
-          {% endfor %}
-        {% else %}
-          <li>No API data available</li>
-        {% endif %}
-      </ul>
+      
+      <!-- Display each todo item in its own row -->
+      {% if api_data %}
+        {% for todo in api_data %}
+          <div class="box todo-item {% if todo.completed %}completed-task{% endif %} is-small" style="margin-bottom: 10px; padding: 10px; display: flex; align-items: center;">
+            <input type="checkbox" id="todo_{{ loop.index }}" {% if todo.completed %} checked {% endif %} style="width: 20px; height: 20px; margin-right: 10px; color: #000;">
+            <label for="todo_{{ loop.index }}" style="font-size: 17px; {% if todo.completed %}text-decoration: line-through; color: #aaa;{% endif %} margin-right: 10px;"> <!-- added inline styling -->
+              {{ todo.title }}
+            </label>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No API data available</p>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -35,9 +35,11 @@
       checkbox.addEventListener("change", function() {
         var labelText = this.nextElementSibling;
         if (this.checked) {
-          labelText.textContent = labelText.textContent.replace('Not Completed', 'Completed');
+          labelText.style.textDecoration = 'line-through';
+          labelText.style.color = '#aaa';
         } else {
-          labelText.textContent = labelText.textContent.replace('Completed', 'Not Completed');
+          labelText.style.textDecoration = 'none';
+          labelText.style.color = '#000'; // Change color to black when unchecked
         }
       });
     });
