@@ -1,23 +1,36 @@
-<head> 
-  <title> Profile </title> 
-</head>
 {% extends "base.html" %}
 
 {% block content %}
 
-<h1 class="title has-text-centered has-text-light">
-  Welcome, {{ name|capitalize }}!
-</h1>
 <div class="columns is-centered">
   <div class="column is-7">
     <div class="box has-background-dark has-text-centered">
-      <h2 class="title has-text-centered is-size-3 has-text-white">YOUR HOMEWORKS:</h2>
-      
+      <h1 class="title has-text-centered" style="font-size: 3em; color: #6dcff6;">{{ name|capitalize }}</h1>
+      <div class="columns" >
+        <div class="column" style="background-color: #0a0a2a; border-radius: 5px 0 0 5px;">
+          <p class="has-text-white" style="font-weight: bold;">Total Tasks: <span id="totalTasks">{{ api_data|length }}</span></p>
+        </div>
+        <div class="column" style="background-color: #0a2a0a;">
+          <p class="has-text-white" style="font-weight: bold;">Completed Tasks: <span id="completedTasks">{{ api_data|selectattr('completed', 'equalto', true)|list|length }}</span></p>
+        </div>
+        <div class="column" style="background-color: #2a0a0a; border-radius: 0 5px 5px 0;">
+          <p class="has-text-white" style="font-weight: bold;">Pending Tasks: <span id="pendingTasks">{{ api_data|selectattr('completed', 'equalto', false)|list|length }}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="columns is-centered">
+  <div class="column is-7">
+    <div class="box has-background-dark has-text-centered">
+      <h1 class="title has-text-centered is-size-3 has-text-white">YOUR HOMEWORK</h1>  
+      <!-- Display each todo item -->
       {% if api_data %}
         {% for todo in api_data %}
-          <div class="box todo-item {% if todo.completed %}completed-task{% endif %} is-small" style="margin-bottom: 10px; padding: 10px; display: flex; align-items: center;">
-            <input type="checkbox" id="todo_{{ loop.index }}" {% if todo.completed %} checked {% endif %} style="width: 20px; height: 20px; margin-right: 10px; color: #000;">
-            <label for="todo_{{ loop.index }}" style="font-size: 17px; {% if todo.completed %}text-decoration: line-through; color: #aaa;{% endif %} margin-right: 10px;"> <!-- added inline styling -->
+          <div class="box todo-item {% if todo.completed %}completed-task{% endif %} is-small" style="margin-bottom: 10px; padding: 10px; text-align: left">
+            <input type="checkbox" id="todo_{{ loop.index }}" {% if todo.completed %} checked {% endif %} style="width: 20px; height: 20px; margin-right: 10px;">
+            <label for="todo_{{ loop.index }}" style="font-size: 17px;">
               {{ todo.title }}
             </label>
           </div>
@@ -30,17 +43,26 @@
 </div>
 
 <script>
+  // JavaScript code to mark checkboxes as completed
   document.addEventListener("DOMContentLoaded", function() {
     var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    var completedTasks = document.getElementById("completedTasks");
+    var pendingTasks = document.getElementById("pendingTasks");
+    
     checkboxes.forEach(function(checkbox) {
       checkbox.addEventListener("change", function() {
         var labelText = this.nextElementSibling;
+        
         if (this.checked) {
           labelText.style.textDecoration = 'line-through';
           labelText.style.color = '#aaa';
+          completedTasks.textContent = parseInt(completedTasks.textContent) + 1;
+          pendingTasks.textContent = parseInt(pendingTasks.textContent) - 1;
         } else {
           labelText.style.textDecoration = 'none';
           labelText.style.color = '#000';
+          completedTasks.textContent = parseInt(completedTasks.textContent) - 1;
+          pendingTasks.textContent = parseInt(pendingTasks.textContent) + 1;
         }
       });
     });
