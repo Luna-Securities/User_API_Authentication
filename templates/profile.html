@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<h1 class="title has-text-centered has-text-dark">
+<h1 class="title has-text-centered has-text-light">
   Welcome, {{ name|capitalize }}!
 </h1>
 <div class="columns is-centered">
@@ -13,7 +13,6 @@
     <div class="box has-background-dark has-text-centered">
       <h2 class="title has-text-centered is-size-3 has-text-white">YOUR HOMEWORKS:</h2>
       
-      <!-- Display each todo item in its own row -->
       {% if api_data %}
         {% for todo in api_data %}
           <div class="box todo-item {% if todo.completed %}completed-task{% endif %} is-small" style="margin-bottom: 10px; padding: 10px; display: flex; align-items: center;">
@@ -31,7 +30,6 @@
 </div>
 
 <script>
-  // JavaScript code to mark checkboxes as completed
   document.addEventListener("DOMContentLoaded", function() {
     var checkboxes = document.querySelectorAll('input[type="checkbox"]');
     checkboxes.forEach(function(checkbox) {
@@ -42,7 +40,7 @@
           labelText.style.color = '#aaa';
         } else {
           labelText.style.textDecoration = 'none';
-          labelText.style.color = '#000'; // Change color to black when unchecked
+          labelText.style.color = '#000';
         }
       });
     });
