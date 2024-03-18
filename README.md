@@ -9,9 +9,9 @@ This is a simple Flask web application that demonstrates user authentication, AP
 
 ## Project Structure
 
-The project structure is as follows:
+Flask Project
 |   README.txt
-|    __init__.py
+|   __init__.py
 |   auth.py
 |   main.py
 |   models.py
