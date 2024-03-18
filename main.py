@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, jsonify, current_app
+from flask import Blueprint, render_template, redirect, url_for, flash, jsonify, current_app, send_from_directory
 from flask_login import login_required, current_user
 import requests
 from .models import Todo
@@ -24,6 +24,10 @@ def api_users():
         flash('Failed to fetch data from API.')
     
     return render_template('profile.html', name=user_name, user_todos=user_todos, api_data=api_data)
+
+@main.route('/api/static/icons/stock_bg.JPG')
+def serve_static_file():
+    return send_from_directory('static/icons', 'stock_bg.JPG')
 
 def get_user_api_data(user_id):
     # Fetch dummy data
