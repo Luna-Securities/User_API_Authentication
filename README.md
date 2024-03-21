@@ -12,7 +12,7 @@ This is a simple Flask web application that demonstrates user authentication, AP
 1. **Clone the Repository:** Clone this repository to your local machine using the following command:
 
     ```
-    git clone [<repository_url>](https://github.com/Luna-Securities/User_API_Authentication)
+    git clone https://github.com/Luna-Securities/User_API_Authentication
     cd User_API_Authentication
     ```
 
