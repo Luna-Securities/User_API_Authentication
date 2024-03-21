@@ -7,6 +7,36 @@ This is a simple Flask web application that demonstrates user authentication, AP
 - **API Authentication:** The application uses Flask-Login to authenticate users for API access.
 - **Third-Party API Integration:** It fetches data from the JSONPlaceholder API based on user authentication.
 
+## Project Setup
+
+1. **Clone the Repository:** Clone this repository to your local machine using the following command:
+
+    ```
+    git clone [<repository_url>](https://github.com/Luna-Securities/User_API_Authentication)
+    cd User_API_Authentication
+    ```
+
+2. **Create and Activate a Virtual Environment:** Create a virtual environment for the project and activate it:
+
+    ```
+    python -m venv venv
+    source venv/bin/activate  # On Windows, use venv\Scripts\activate
+    ```
+
+3. **Install Dependencies:** Install the required dependencies using pip:
+
+    ```
+    pip install -r requirements.txt
+    ```
+
+4. **Run the Flask Application:** Start the Flask application by running the following command:
+
+    ```
+    flask run
+    ```
+
+    The application should now be running locally. Access it in your web browser at [http://localhost:5000](http://localhost:5000).
+
 ## Project Structure
 
 Flask Project
